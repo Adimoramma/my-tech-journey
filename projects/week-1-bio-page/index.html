@@ -184,6 +184,7 @@
             border-radius: 8px;
             font-size: 16px;
             font-family: inherit;
+            transition: border-color 0.3s;
         }
 
         .contact-form input:focus,
@@ -207,12 +208,53 @@
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, opacity 0.3s;
             align-self: flex-start;
         }
 
         .contact-form button:hover {
             background-color: #2980b9;
+        }
+
+        .contact-form button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ---------- FORM STATUS MESSAGE ---------- */
+        #form-status {
+            margin-top: 15px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #form-status.success {
+            display: block;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        #form-status.error {
+            display: block;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        #form-status.loading {
+            display: block;
+            background-color: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ---------- FOOTER ---------- */
@@ -261,6 +303,11 @@
             .project-card {
                 flex: 1 1 100%;
             }
+
+            .contact-form button {
+                align-self: stretch;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -269,12 +316,12 @@
 
         <!-- ===== HEADER ===== -->
         <header class="header">
-            <h1>NGWU MICHAEL ADIOMRA</h1>
+            <h1>NGWU MICHAEL ADIMORA</h1>
             <p class="tagline">Aspiring Full-Stack Developer | AI Enthusiast | Cyber Security Learner</p>
         </header>
 
         <!-- ===== PROFILE IMAGE ===== -->
-        <img src="https://avatars.githubusercontent.com/u/165647528?v=4" alt="Profile Photo" class="profile-image">
+        <img src="https://avatars.githubusercontent.com/u/165647528?v=4" alt="Ngwu Michael Adimora's Profile Photo" class="profile-image">
 
         <!-- ===== ABOUT ME ===== -->
         <h2 class="section-title">About Me</h2>
@@ -316,7 +363,6 @@
                 <br>
                 <a href="https://mikesbio.vercel.app" target="_blank">🔗 Live Demo</a>
             </div>
-            <!-- Add more project cards as you build them -->
             <div class="project-card">
                 <h3>Coming Soon</h3>
                 <p>More projects will be added as I progress through my learning journey.</p>
@@ -326,13 +372,15 @@
 
         <!-- ===== CONTACT FORM ===== -->
         <h2 class="section-title">Contact Me</h2>
-        <form class="contact-form" action="https://formspree.io/f/mykqwvng" method="POST">
-            <input type="hidden" name="_redirect" value="https://mikesbio.vercel.app">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
+        <form id="contactForm" class="contact-form">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+            <button type="submit" id="submitBtn">Send Message</button>
         </form>
+
+        <!-- ===== STATUS MESSAGE (Hidden by default) ===== -->
+        <div id="form-status"></div>
 
         <!-- ===== FOOTER ===== -->
         <footer class="footer">
@@ -342,5 +390,85 @@
         </footer>
 
     </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            const statusDiv = document.getElementById('form-status');
+            const submitBtn = document.getElementById('submitBtn');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+
+            // Auto-hide status after 2 minutes
+            function autoHideStatus() {
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 120000); // 120 seconds = 2 minutes
+            }
+
+            form.addEventListener('submit', async function(event) {
+                // Stop the form from refreshing the page
+                event.preventDefault();
+
+                // Get form data
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                const message = messageInput.value.trim();
+
+                // Basic validation
+                if (!name || !email || !message) {
+                    statusDiv.textContent = '⚠️ Please fill in all fields.';
+                    statusDiv.className = 'error';
+                    autoHideStatus();
+                    return;
+                }
+
+                // Disable button and show loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+                statusDiv.textContent = '⏳ Sending your message...';
+                statusDiv.className = 'loading';
+                statusDiv.style.display = 'block';
+
+                try {
+                    // Send data to Formspree JSON endpoint
+                    const response = await fetch('https://formspree.io/f/mykqwvng', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ name, email, message })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Success!
+                        statusDiv.textContent = '✅ Thank you! Your message has been received successfully. I will get back to you soon.';
+                        statusDiv.className = 'success';
+                        form.reset(); // Clear the form fields
+                    } else {
+                        // ❌ Server returned an error
+                        statusDiv.textContent = '❌ Something went wrong. Please try again later.';
+                        statusDiv.className = 'error';
+                        console.error('Formspree error:', data);
+                    }
+                } catch (error) {
+                    // Network error or other issue
+                    statusDiv.textContent = '❌ Network error. Please check your connection and try again.';
+                    statusDiv.className = 'error';
+                    console.error('Fetch error:', error);
+                } finally {
+                    // Re-enable the button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                    autoHideStatus();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
