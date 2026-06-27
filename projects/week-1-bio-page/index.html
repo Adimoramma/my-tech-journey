@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Bio</title>
+    <title>Michael Adimora | Bio</title>
     <style>
         /* ---------- RESET & GLOBAL ---------- */
         * {
@@ -11,7 +11,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f4f8;
@@ -19,35 +19,35 @@
             line-height: 1.6;
             padding: 20px;
         }
-        
+
         /* ---------- CONTAINER ---------- */
         .container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             background-color: white;
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* ---------- HEADER ---------- */
         .header {
             text-align: center;
             margin-bottom: 30px;
         }
-        
+
         .header h1 {
             font-size: 36px;
             color: #2c3e50;
             margin-bottom: 5px;
         }
-        
+
         .header .tagline {
             font-size: 18px;
             color: #7f8c8d;
             font-style: italic;
         }
-        
+
         /* ---------- PROFILE IMAGE ---------- */
         .profile-image {
             display: block;
@@ -58,7 +58,7 @@
             object-fit: cover;
             border: 4px solid #3498db;
         }
-        
+
         /* ---------- SECTION HEADINGS ---------- */
         .section-title {
             font-size: 22px;
@@ -67,13 +67,13 @@
             padding-bottom: 8px;
             margin: 30px 0 15px 0;
         }
-        
+
         /* ---------- ABOUT ME ---------- */
         .about-text {
             font-size: 16px;
             margin-bottom: 10px;
         }
-        
+
         /* ---------- HOBBIES (Flexbox) ---------- */
         .hobbies-list {
             display: flex;
@@ -83,7 +83,7 @@
             padding: 0;
             justify-content: center;
         }
-        
+
         .hobbies-list li {
             background-color: #3498db;
             color: white;
@@ -92,7 +92,7 @@
             font-size: 14px;
             font-weight: 500;
         }
-        
+
         /* ---------- SKILLS (Flexbox Grid) ---------- */
         .skills-grid {
             display: flex;
@@ -101,7 +101,7 @@
             justify-content: center;
             margin-top: 10px;
         }
-        
+
         .skill-item {
             background-color: #ecf0f1;
             padding: 10px 25px;
@@ -111,7 +111,64 @@
             border: 1px solid #ddd;
             font-size: 14px;
         }
-        
+
+        /* ---------- PROJECTS ---------- */
+        .projects-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .project-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            flex: 1 1 calc(50% - 20px);
+            min-width: 200px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .project-card p {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .project-card a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .project-card a:hover {
+            text-decoration: underline;
+        }
+
+        .project-card .tag {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            font-size: 11px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+
         /* ---------- CONTACT FORM ---------- */
         .contact-form {
             display: flex;
@@ -119,7 +176,7 @@
             gap: 15px;
             margin-top: 10px;
         }
-        
+
         .contact-form input,
         .contact-form textarea {
             padding: 12px;
@@ -128,19 +185,19 @@
             font-size: 16px;
             font-family: inherit;
         }
-        
+
         .contact-form input:focus,
         .contact-form textarea:focus {
             outline: none;
             border-color: #3498db;
             box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
         }
-        
+
         .contact-form textarea {
             resize: vertical;
             min-height: 100px;
         }
-        
+
         .contact-form button {
             padding: 12px 30px;
             background-color: #3498db;
@@ -153,11 +210,11 @@
             transition: background-color 0.3s;
             align-self: flex-start;
         }
-        
+
         .contact-form button:hover {
             background-color: #2980b9;
         }
-        
+
         /* ---------- FOOTER ---------- */
         .footer {
             text-align: center;
@@ -167,53 +224,66 @@
             color: #7f8c8d;
             font-size: 14px;
         }
-        
+
+        .footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
         /* ---------- RESPONSIVE ---------- */
         @media (max-width: 500px) {
             .container {
                 padding: 20px;
             }
-            
+
             .header h1 {
                 font-size: 28px;
             }
-            
+
             .skills-grid {
                 gap: 8px;
             }
-            
+
             .skill-item {
                 padding: 8px 15px;
                 font-size: 12px;
             }
-            
+
             .hobbies-list li {
                 padding: 6px 15px;
                 font-size: 12px;
+            }
+
+            .project-card {
+                flex: 1 1 100%;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        
+
         <!-- ===== HEADER ===== -->
         <header class="header">
-            <h1>NGWU MICHAEL ADIMORA</h1>
-            <p class="tagline">Aspiring Full-Stack Developer &amp; AI Enthusiast</p>
+            <h1>NGWU MICHAEL ADIOMRA</h1>
+            <p class="tagline">Aspiring Full-Stack Developer | AI Enthusiast | Cyber Security Learner</p>
         </header>
-        
+
         <!-- ===== PROFILE IMAGE ===== -->
         <img src="https://avatars.githubusercontent.com/u/165647528?v=4" alt="Profile Photo" class="profile-image">
-        
+
         <!-- ===== ABOUT ME ===== -->
         <h2 class="section-title">About Me</h2>
         <p class="about-text">
-            Hello! I'm a passionate developer learning web development, AI, and cybersecurity. 
-            I love building things that solve real problems and make the world a better place. 
+            Hello! I'm Ngwu Michael Adimora, a passionate developer learning web development, AI, and cybersecurity.
+            I love building things that solve real problems and make the world a better place.
             Currently, I'm on a journey to full-stack, AI, and cybersecurity mastery.
         </p>
-        
+
         <!-- ===== HOBBIES ===== -->
         <h2 class="section-title">My Hobbies</h2>
         <ul class="hobbies-list">
@@ -223,7 +293,7 @@
             <li>Photography</li>
             <li>Football</li>
         </ul>
-        
+
         <!-- ===== SKILLS ===== -->
         <h2 class="section-title">My Skills</h2>
         <div class="skills-grid">
@@ -234,21 +304,43 @@
             <span class="skill-item">Python</span>
             <span class="skill-item">React</span>
         </div>
-        
+
+        <!-- ===== PROJECTS ===== -->
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Personal Bio Page</h3>
+                <p>My first complete website built with HTML and CSS. Deployed on Vercel.</p>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <br>
+                <a href="https://mikesbio.vercel.app" target="_blank">🔗 Live Demo</a>
+            </div>
+            <!-- Add more project cards as you build them -->
+            <div class="project-card">
+                <h3>Coming Soon</h3>
+                <p>More projects will be added as I progress through my learning journey.</p>
+                <span class="tag">🚀 In Progress</span>
+            </div>
+        </div>
+
         <!-- ===== CONTACT FORM ===== -->
         <h2 class="section-title">Contact Me</h2>
-        <form class="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" required></textarea>
+        <form class="contact-form" action="https://formspree.io/f/mykqwvng" method="POST">
+            <input type="hidden" name="_redirect" value="https://mikesbio.vercel.app">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
             <button type="submit">Send Message</button>
         </form>
-        
+
         <!-- ===== FOOTER ===== -->
         <footer class="footer">
-            &copy; 2026 NGWU MICHAEL ADIMORA. All rights reserved.
+            &copy; 2026 Ngwu Michael Adimora. All rights reserved.
+            <br>
+            Built with ❤️ | <a href="https://github.com/Adimoramma" target="_blank">GitHub</a>
         </footer>
-        
+
     </div>
 </body>
 </html>
