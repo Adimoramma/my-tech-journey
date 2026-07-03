@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f4f8;
+        }
+        h1 {
+            color: #2c3e50;
+            transition: color 0.3s;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .highlight {
+            color: #e74c3c;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            margin: 20px auto;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .box.big {
+            width: 200px;
+            height: 200px;
+            background-color: #e74c3c;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 10px;
+        }
+        #displayText {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="myHeading">Hello World</h1>
+    <p id="myParagraph">This is a paragraph.</p>
+    
+    <button id="changeTextBtn">Change Text</button>
+    <button id="resetTextBtn">Reset Text</button>
+    
+    <button id="highlightBtn">Toggle Highlight</button>
+    <button id="boxBtn">Toggle Box Size</button>
+    
+    <input type="text" id="liveInput" placeholder="Type something...">
+    <p id="displayText">Your text will appear here</p>
+    
+    <div class="box" id="myBox"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
