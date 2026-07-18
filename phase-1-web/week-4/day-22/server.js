@@ -262,8 +262,8 @@ app.delete('/users', async (req, res) => {
 
 // ----- START SERVER -----
 app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
-    console.log('\n📌 Available routes:');
+    console.log(` Server running at http://localhost:${PORT}`);
+    console.log('\n Available routes:');
     console.log(`  GET    /users              - Get all users`);
     console.log(`  GET    /users/:id          - Get a single user`);
     console.log(`  GET    /users/search?q=... - Search users by name`);
